@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div id="auth-section" class="flex h-screen items-center justify-center bg-gray-100">
+
+        <div id="login" class="bg-white p-6 rounded-lg shadow-lg w-80">
+            <h2 class="text-center text-xl font-bold mb-4">Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-4">
+                    <label for="login-email" class="block mb-2 text-sm font-medium">Email</label>
+                    <input type="email" id="login-email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="login-password" class="block mb-2 text-sm font-medium">Password</label>
+                    <input type="password" id="login-password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">Login</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="#" onclick="showRegister()" class="text-yellow-500 hover:underline">Akkauntingiz yuqmi? ruyxatdan utish</a>
+            </div>
+        </div>
+
+        <div id="register" class="bg-white p-6 rounded-lg shadow-lg w-80 hidden">
+            <h2 class="text-center text-xl font-bold mb-4">Register</h2>
+            <form onsubmit="handleRegister(event)">
+                <div class="mb-4">
+                    <label for="register-name" class="block mb-2 text-sm font-medium">Name</label>
+                    <input type="text" id="register-name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-email" class="block mb-2 text-sm font-medium">Email</label>
+                    <input type="email" id="register-email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="register-password" class="block mb-2 text-sm font-medium">Password</label>
+                    <input type="password" id="register-password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">Register</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="#" onclick="showLogin()" class="text-yellow-500 hover:underline">Akkauntingiz bormi? Tizimga qayting</a>
+            </div>
+        </div> 
+    </div>
+
+    <div id="main-section" class="hidden flex h-screen">
+        <aside class="bg-rgba(242, 234, 225, 1) w-1/4 p-6 flex flex-col justify-between">
+            <div>
+                <div class="text-center mb-8">
+                    <img src="./imgs/pexels-photo-2379004 1.png" alt="Admin Avatar" class="rounded-full mx-auto">
+                    <h3 class="mt-2 font-bold text-lg">Karthi Madesh</h3>
+                    <p class="text-sm text-gray-600">Admin</p>
+                </div>
+                <nav>
+                    <ul id="student-list">
+                    </ul>
+                </nav>
+            </div>
+            <div>
+                <button onclick="logout()" class="text-red-500 flex items-center">
+                    Logout
+                    <img src="./icons/logout.svg" alt="logout" class="flex justify-center">
+                </button>
+            </div>
+        </aside>
+
+        <main class="bg-white flex-1 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Students List</h2>
+            </div>
+
+            <div class="mb-4 flex justify-between">
+                <button onclick="showAddStudentForm()" class="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600">Add New Student</button>
+                <input type="text" id="search" placeholder="Search..." class="border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            </div>
+
+            <table class="table-auto w-full bg-white shadow-lg rounded-lg">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3">Name</th>
+                        <th class="px-6 py-3">Email</th>
+                        <th class="px-6 py-3">Phone</th>
+                        <th class="px-6 py-3">Enroll Number</th>
+                        <th class="px-6 py-3">Date Admission</th>
+                        <th class="px-6 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="students">
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <div id="student-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg w-1/3">
+            <h2 id="modal-title" class="text-xl font-bold mb-4">Add New Student</h2>
+            <form id="student-form" onsubmit="handleFormSubmit(event)">
+                <div class="mb-4">
+                    <label for="student-name" class="block mb-2 text-sm font-medium">Name</label>
+                    <input type="text" id="student-name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="student-email" class="block mb-2 text-sm font-medium">Email</label>
+                    <input type="email" id="student-email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="student-phone" class="block mb-2 text-sm font-medium">Phone</label>
+                    <input type="text" id="student-phone" name="phone" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="student-enroll" class="block mb-2 text-sm font-medium">Enroll Number</label>
+                    <input type="text" id="student-enroll" name="enroll" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="student-date" class="block mb-2 text-sm font-medium">Date Admission</label>
+                    <input type="date" id="student-date" name="date" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" onclick="closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">Cancel</button>
+                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+</html>
