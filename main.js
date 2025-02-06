@@ -6,8 +6,6 @@ function handleLogin(event) {
     if (email && password) {
         document.getElementById("auth-section").classList.add("hidden");
         document.getElementById("main-section").classList.remove("hidden");
-    } else {
-        alert("Iltimos akkauntinggizni malumotlarini kiriting");
     }
 }
 
@@ -20,8 +18,6 @@ function handleRegister(event) {
     if (name && email && password) {
         alert("ruyxatdan muvaffaqiyatli utdinggiz.");
         showLogin();
-    } else {
-        alert("Iltimos barcha bush joylarni tuldiring!");
     }
 }
 
